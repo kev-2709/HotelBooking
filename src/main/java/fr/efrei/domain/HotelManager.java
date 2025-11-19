@@ -5,8 +5,6 @@ import java.util.List;
 public class HotelManager {
     private String id;
     private String name;
-    private String username;
-    private String email;
     private List<Room> rooms;
     private List<Guest> managedGuests;
 
@@ -16,8 +14,6 @@ public class HotelManager {
     public HotelManager(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
-        this.username = builder.username;
-        this.email = builder.email;
         this.rooms = builder.rooms;
         this.managedGuests = builder.managedGuests;
     }
@@ -28,14 +24,6 @@ public class HotelManager {
 
     public String getName() {
         return name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public List<Room> getRooms() {
@@ -51,8 +39,6 @@ public class HotelManager {
         return "HotelManager{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
                 ", rooms=" + rooms +
                 ", managedGuests=" + managedGuests +
                 '}';
@@ -61,8 +47,6 @@ public class HotelManager {
     public static class Builder {
         private String id;
         private String name;
-        private String username;
-        private String email;
         private List<Room> rooms;
         private List<Guest> managedGuests;
 
@@ -76,15 +60,6 @@ public class HotelManager {
             return this;
         }
 
-        public Builder setUsername(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
 
         public Builder setRooms(List<Room> rooms) {
             this.rooms = rooms;
@@ -99,8 +74,6 @@ public class HotelManager {
         public Builder copy(HotelManager hotelManager) {
             this.id = hotelManager.id;
             this.name = hotelManager.name;
-            this.username = hotelManager.username;
-            this.email = hotelManager.email;
             this.rooms = hotelManager.rooms;
             this.managedGuests = hotelManager.managedGuests;
             return this;
