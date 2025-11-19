@@ -8,8 +8,6 @@ public class Single extends Room{
     public static class Builder{
         private int roomNumber;
         private double pricePerNight;
-        private boolean isAvailable;
-        private int floor;
         private String bedType;
 
         public Builder setRoomNumber(int roomNumber){
@@ -22,16 +20,6 @@ public class Single extends Room{
             return this;
         }
 
-        public Builder setIsAvailable(boolean isAvailable){
-            this.isAvailable = isAvailable;
-            return this;
-        }
-
-        public Builder setFloor(int floor){
-            this.floor = floor;
-            return this;
-        }
-
         public Builder setBedType(String bedType){
             this.bedType = bedType;
             return this;
@@ -40,8 +28,6 @@ public class Single extends Room{
         public Builder copy(Single single){
             this.roomNumber = single.roomNumber;
             this.pricePerNight = single.pricePerNight;
-            this.isAvailable = single.isAvailable;
-            this.floor = single.floor;
             this.bedType = single.bedType;
             return this;
         }
