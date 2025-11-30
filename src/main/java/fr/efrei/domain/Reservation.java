@@ -3,6 +3,7 @@ package fr.efrei.domain;
 import java.util.Date;
 
 public class Reservation {
+    private int reservationId;
     private Date arrival;
     private Date departure;
 
@@ -27,9 +28,20 @@ public class Reservation {
         this.departure = departure;
     }
 
+    public Integer getReservationId() {
+        return reservationId;
+    }
+
+
     public static class Builder{
+        private int reservationId;
         private Date arrival;
         private Date departure;
+
+        public Builder setReservationId(int reservationId){
+            this.reservationId = reservationId;
+            return this;
+        }
 
         public Builder setArrival(Date arrival){
             this.arrival = arrival;
@@ -42,6 +54,7 @@ public class Reservation {
         }
 
         public Builder copy(Reservation reservation){
+            this.reservationId = reservation.reservationId;
             this.arrival = reservation.arrival;
             this.departure = reservation.departure;
             return this;
