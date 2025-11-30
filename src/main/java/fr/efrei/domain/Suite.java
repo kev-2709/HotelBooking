@@ -6,7 +6,13 @@ public class Suite extends Room{
     private int nbRooms;
     private int nbGuests;
 
-    public Suite(Builder builder){}
+    public Suite(Builder builder){
+        this.roomNumber = builder.roomNumber;
+        this.pricePerNight = builder.pricePerNight;
+        this.nbRooms = builder.nbRooms;
+        this.nbGuests = builder.nbGuests;
+        this.reservations = builder.reservations;
+    }
 
     public static class Builder{
         private int roomNumber;

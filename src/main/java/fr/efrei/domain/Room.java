@@ -6,4 +6,14 @@ public abstract class Room {
     protected int roomNumber;
     protected double pricePerNight;
     protected List<Reservation> reservations;
+
+    public int getRoomNumber(){
+        return roomNumber;
+    }
+    public double getPricePerNight(){
+        return pricePerNight;
+    }
+    public List<Reservation> getReservations(){
+        return reservations;
+    }
 }

@@ -5,7 +5,12 @@ import java.util.List;
 public class Double extends Room{
     private String bedType;
 
-    public Double(Builder builder){}
+    public Double(Builder builder){
+        this.roomNumber = builder.roomNumber;
+        this.pricePerNight = builder.pricePerNight;
+        this.bedType = builder.bedType;
+        this.reservations = builder.reservations;
+    }
 
     public static class Builder{
         private int roomNumber;

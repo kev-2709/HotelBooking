@@ -6,7 +6,10 @@ public class Reservation {
     private Date arrival;
     private Date departure;
 
-    private Reservation(Builder builder){}
+    private Reservation(Builder builder){
+        this.arrival = builder.arrival;
+        this.departure = builder.departure;
+    }
 
     public Date getArrival() {
         return arrival;
