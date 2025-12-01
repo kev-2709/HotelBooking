@@ -21,6 +21,14 @@ public class Suite extends Room{
         private int nbGuests;
         private List<Reservation> reservations;
 
+        public int getNbRooms() {
+            return nbRooms;
+        }
+
+        public int getNbGuests() {
+            return nbGuests;
+        }
+
         public Builder setRoomNumber(int roomNumber){
             this.roomNumber = roomNumber;
             return this;
