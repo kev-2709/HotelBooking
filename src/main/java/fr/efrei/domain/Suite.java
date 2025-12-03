@@ -14,6 +14,14 @@ public class Suite extends Room{
         this.reservations = builder.reservations;
     }
 
+    public int getNbRooms() {
+        return nbRooms;
+    }
+
+    public int getNbGuests() {
+        return nbGuests;
+    }
+
     public static class Builder{
         private int roomNumber;
         private double pricePerNight;
