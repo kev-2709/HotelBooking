@@ -226,7 +226,7 @@ public class Main {
     }
 
     private static void makeReservationForGuest(Guest guest) {
-        System.out.println("\n RESERVATION FOR " + guest.getFirstName() + " " + guest.getLastName() + " ===");
+        System.out.println("\n RESERVATION FOR " + guest.getFirstName() + " " + guest.getLastName() + "   -");
 
         // Demander les dates d'abord
         System.out.print("Arrival date (YYYY-MM-DD): ");
@@ -439,12 +439,147 @@ public class Main {
         if (results.isEmpty()) {
             System.out.println("No guests found.");
         } else {
-            System.out.println("\n=== RESULTS (" + results.size() + " guests) ===");
+            System.out.println("\n-   RESULTS (" + results.size() + " guests)    -");
             for (Guest g : results) {
                 System.out.println("ID: " + g.getId() + " | Name: " + g.getFirstName() + " " + g.getLastName() +
                         " | Email: " + g.getEmail() + " | Phone: " + g.getPhone() +
                         " | Nationality: " + g.getNationality());
             }
         }
+    }
+
+    private static void manageRooms() {
+        System.out.println("\n-   MANAGE ROOMS   -");
+        System.out.println("1. View all rooms");
+        System.out.println("2. Add new room");
+        System.out.println("3. Update room price");
+        System.out.println("4. Back to main menu");
+
+        int choice = getIntInput("Your choice: "); //to do
+
+        switch (choice) {
+            case 1:
+                viewAllRooms();
+                break;
+            case 2:
+                addNewRoom();
+                break;
+            case 3:
+                updateRoomPrice();
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println("Invalid choice!");
+        }
+    }
+
+    private static void viewAllRooms() {
+        System.out.println("\n-   ALL ROOMS   -");
+
+        ISingleRepository singleRepo = SingleRepository.getRepository();
+        IDoubleRepository doubleRepo = DoubleRepository.getRepository();
+        ISuiteRepository suiteRepo = SuiteRepository.getRepository();
+
+        List<Single> singles = singleRepo.getAll();
+        List<DoubleRoom> doubleRooms = doubleRepo.getAll();
+        List<Suite> suites = suiteRepo.getAll();
+
+        System.out.println("\nSINGLE ROOMS:");
+        for (Single s : singles) {
+            System.out.println("- Room " + s.getRoomNumber() + ": €" + s.getPricePerNight() +
+                    "/night, " + s.getReservations().size() + " reservation(s)");
+        }
+
+        System.out.println("\nDOUBLE ROOMS:");
+        for (DoubleRoom d : doubleRooms) {
+            System.out.println("- Room " + d.getRoomNumber() + ": €" + d.getPricePerNight() +
+                    "/night, " + d.getReservations().size() + " reservation(s)");
+        }
+
+        System.out.println("\nSUITES:");
+        for (Suite s : suites) {
+            System.out.println("- Suite " + s.getRoomNumber() +
+                    ": €" + s.getPricePerNight() + "/night, " +
+                    s.getNbRooms() + " rooms, " +
+                    "max " + s.getNbGuests() + " guests, " +
+                    s.getReservations().size() + " reservation(s)");
+        }
+    }
+
+    private static void addNewRoom() {
+        System.out.println("\n-    ADD NEW ROOM    -");
+        System.out.println("1. Single room");
+        System.out.println("2. Double room");
+        System.out.println("3. Suite");
+
+        int type = getIntInput("Room type: ");
+
+        System.out.print("Room number: ");
+        int roomNumber = getIntInput("");
+
+        System.out.print("Price per night: ");
+        double price = getDoubleInput("");
+
+        List<Reservation> emptyReservations = new ArrayList<>();
+
+        switch (type) {
+            case 1:
+                System.out.print("Bed type: ");
+                String bedType = scanner.nextLine();
+                Single single = SingleFactory.createSingle(roomNumber, price, bedType, emptyReservations);
+                if (single != null) {
+                    SingleRepository.getRepository().create(single);
+                    System.out.println("SUCCESS: Single room added!");
+                } else {
+                    System.out.println("ERROR: Failed to create room!");
+                }
+                break;
+            case 2:
+                System.out.print("Bed type: ");
+                String doubleBedType = scanner.nextLine();
+                DoubleRoom doubleRoom = DoubleFactory.createDouble(roomNumber, price, doubleBedType, emptyReservations);
+                if (doubleRoom != null) {
+                    DoubleRepository.getRepository().create(doubleRoom);
+                    System.out.println("SUCCESS: Double room added!");
+                } else {
+                    System.out.println("ERROR: Failed to create room!");
+                }
+                break;
+            case 3:
+                System.out.print("Number of rooms: ");
+                int nbRooms = getIntInput("");
+                System.out.print("Max guests: ");
+                int nbGuests = getIntInput("");
+                Suite suite = SuiteFactory.createSuite(roomNumber, price, nbRooms, nbGuests, emptyReservations);
+                if (suite != null) {
+                    SuiteRepository.getRepository().create(suite);
+                    System.out.println("SUCCESS: Suite added!");
+                } else {
+                    System.out.println("ERROR: Failed to create suite!");
+                }
+                break;
+            default:
+                System.out.println("Invalid room type!");
+        }
+    }
+
+    private static void updateRoomPrice() {
+        System.out.println("\n-    UPDATE ROOM PRICE    -");
+
+        System.out.print("Enter room number: ");
+        int roomNumber = getIntInput("");
+
+        Room room = findRoomByNumber(roomNumber);
+        if (room == null) {
+            System.out.println("ERROR: Room not found!");
+            return;
+        }
+
+        System.out.println("Current price: €" + room.getPricePerNight());
+        System.out.print("New price: ");
+        double newPrice = getDoubleInput("");
+
+        System.out.println("SUCCESS: Price updated to €" + newPrice + " for room " + roomNumber);
     }
 }//to delete
